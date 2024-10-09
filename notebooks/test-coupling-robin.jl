@@ -47,7 +47,10 @@ md"""
 ```math
 \begin{align}
 ∂_t X - ∇ ⋅  \left(a(x) ∇ X\right) &=0\\
-∂_t T - ∇ ⋅ \left(φ(T) ∇ T + T ∇ X\right) &=0
+∂_t T + N_T &=0\\
+ \vec N_T=-∇ ⋅ \left(φ(T) ∇ T + T ∇ X\right) &=0\\
+a(x)∇X\cdot \vec n + α_X(X-X_0) &= 0\\
+ \vec N_T\cdot \vec n + α_T(T-T_0) &=0 
 \end{align}
 ```
 """
@@ -125,6 +128,9 @@ end
 # ╔═╡ 69f8af2f-af08-41c0-beae-b60b9737aa92
 grid1d = simplexgrid(range(0, 1, length = 201))
 
+# ╔═╡ 8a166b3b-8f39-488a-92de-a1153d2cebb4
+gridplot(grid1d, size=(600,300), legend=:lt)
+
 # ╔═╡ cfb631fb-7aa8-4e09-9d0b-63a5ffa58bd7
 sys1d = CVFEMSystem(grid1d, celleval, bnodeeval, ones(1, 1) , 2)
 
@@ -188,6 +194,12 @@ Tmax=maximum(tsol2d[iT,:,:])
 # ╔═╡ 398e19a7-ce96-4577-a124-f62b351a61ba
 Xmax=maximum(tsol2d[iX,:,:])
 
+# ╔═╡ c81340bb-86f5-4787-bb30-a6215ca97b5f
+maximum(tsol1d[iT,:,:])
+
+# ╔═╡ d6e61407-b002-4960-9cda-9e2727ec0366
+maximum(tsol1d[iX,:,:])
+
 # ╔═╡ 00c3db40-11f4-4f4a-ba98-ecc949d02448
 @bind it2d PlutoUI.Slider(1:length(tsol2d.t), show_value = true)
 
@@ -210,7 +222,7 @@ TableOfContents()
 # ╔═╡ Cell order:
 # ╠═784b4c3e-bb2a-4940-a83a-ed5e5898dfd4
 # ╟─a6c1ef20-16aa-40f0-82f6-2376126eefb7
-# ╟─9d5c39da-4461-4296-80ff-31bd3206d847
+# ╠═9d5c39da-4461-4296-80ff-31bd3206d847
 # ╟─f62010ad-6531-470e-8cad-c4ee682a0eac
 # ╠═ce013ee5-4b2b-4982-b285-7c28c7b160b6
 # ╠═431df177-6984-4132-91c8-11915246867d
@@ -220,6 +232,7 @@ TableOfContents()
 # ╠═67f9b969-f5f7-438e-9a1e-9f3efce4ea46
 # ╠═71a22381-b926-474d-91a5-fbcca08a3e1f
 # ╠═69f8af2f-af08-41c0-beae-b60b9737aa92
+# ╠═8a166b3b-8f39-488a-92de-a1153d2cebb4
 # ╠═cfb631fb-7aa8-4e09-9d0b-63a5ffa58bd7
 # ╠═7ff179f2-301c-4ebb-b1bc-d5d9a34e1ff9
 # ╠═90447221-fddb-4749-9453-0751f96825d0
@@ -233,6 +246,8 @@ TableOfContents()
 # ╠═87b03221-ce70-43d3-803e-f12a6fd7b281
 # ╠═e1e8cf79-18f1-489c-97c5-f8fa0adc42ec
 # ╠═398e19a7-ce96-4577-a124-f62b351a61ba
+# ╠═c81340bb-86f5-4787-bb30-a6215ca97b5f
+# ╠═d6e61407-b002-4960-9cda-9e2727ec0366
 # ╠═00c3db40-11f4-4f4a-ba98-ecc949d02448
 # ╟─e6afb952-be58-4113-bba5-fba39747d7a9
 # ╠═1c63e831-ff08-46db-874e-6b2214b7a1c5
